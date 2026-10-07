@@ -38,6 +38,17 @@
                     </p>
 
                 </div>
+                <div class="acoes">
+
+    <a class="btn" href="{% url 'editar_evento' evento.id %}">
+        ✏️ Editar
+    </a>
+
+    <a class="btn" href="{% url 'excluir_evento' evento.id %}">
+        🗑️ Excluir
+    </a>
+
+</div>
 
             {% endfor %}
 
