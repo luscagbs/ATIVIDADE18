@@ -1,39 +1,27 @@
-{% load static %}
+{% extends "core/base.html" %}
 
-<!DOCTYPE html>
-<html lang="pt-BR">
+{% block title %}
+Editar Tarefa
+{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Tarefa</title>
-    <link rel="stylesheet" href="{% static 'core/style.css' %}">
-</head>
+{% block content %}
 
-<body>
+<h1>Editar tarefa</h1>
 
-    <div class="container">
+<form method="post">
+    {% csrf_token %}
 
-        <h1>Editar tarefa</h1>
+    {{ form.as_p }}
 
-        <form method="post">
-            {% csrf_token %}
+    <button class="btn" type="submit">
+        Salvar alterações
+    </button>
+</form>
 
-            {{ form.as_p }}
+<br>
 
-            <button class="btn" type="submit">
-                Salvar alterações
-            </button>
-        </form>
+<a class="btn" href="{% url 'listar_tarefas' %}">
+    Voltar para tarefas
+</a>
 
-        <br>
-
-        <a class="btn" href="{% url 'listar_tarefas' %}">
-            Voltar para tarefas
-        </a>
-
-    </div>
-
-</body>
-
-</html>
+{% endblock %}

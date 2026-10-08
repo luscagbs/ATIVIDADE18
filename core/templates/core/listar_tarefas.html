@@ -1,88 +1,67 @@
-{% load static %}
+{% extends "core/base.html" %}
 
-<!DOCTYPE html>
+{% block title %}
+Tarefas
+{% endblock %}
 
-<html lang="pt-BR">
+{% block content %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tarefas</title>
-    <link rel="stylesheet" href="{% static 'core/style.css' %}">
-</head>
+<h1>Tarefas</h1>
 
-<body>
+<a class="btn" href="{% url 'criar_tarefa' %}">
+    + Cadastrar nova tarefa
+</a>
 
-```
-<div class="container">
+{% if tarefas %}
 
-    <h1>Tarefas</h1>
-
-    <a class="btn" href="{% url 'criar_tarefa' %}">
-        + Cadastrar nova tarefa
-    </a>
-
-    {% if tarefas %}
-
-        {% for tarefa in tarefas %}
-
-            <div class="evento">
-
-                <h2>{{ tarefa.titulo }}</h2>
-
-                <p>
-                    <strong>Prioridade:</strong>
-                    {{ tarefa.get_prioridade_display }}
-                </p>
-
-                <p>
-                    <strong>Evento:</strong>
-                    {{ tarefa.evento.nome }}
-                </p>
-
-                <p>
-                    <strong>Concluída:</strong>
-
-                    {% if tarefa.concluido %}
-                        Sim
-                    {% else %}
-                        Não
-                    {% endif %}
-                </p>
-
-            </div>
-
-            <div class="acoes">
-
-                <a class="btn" href="{% url 'editar_tarefa' tarefa.id %}">
-                    ✏️ Editar
-                </a>
-
-                <a class="btn" href="{% url 'excluir_tarefa' tarefa.id %}">
-                    🗑️ Excluir
-                </a>
-
-            </div>
-
-        {% endfor %}
-
-    {% else %}
+    {% for tarefa in tarefas %}
 
         <div class="evento">
-            <p>Nenhuma tarefa cadastrada.</p>
+
+            <h2>{{ tarefa.titulo }}</h2>
+
+            <p>
+                <strong>Prioridade:</strong>
+                {{ tarefa.get_prioridade_display }}
+            </p>
+
+            <p>
+                <strong>Evento:</strong>
+                {{ tarefa.evento.nome }}
+            </p>
+
+            <p>
+                <strong>Concluída:</strong>
+
+                {% if tarefa.concluido %}
+                    Sim
+                {% else %}
+                    Não
+                {% endif %}
+            </p>
+
         </div>
 
-    {% endif %}
+        <div class="acoes">
 
-    <br>
+            <a class="btn" href="{% url 'editar_tarefa' tarefa.id %}">
+                Editar
+            </a>
 
-    <a class="btn" href="{% url 'listar_eventos' %}">
-        Voltar para eventos
-    </a>
+            <a class="btn" href="{% url 'excluir_tarefa' tarefa.id %}">
+                Excluir
+            </a>
 
-</div>
-```
+        </div>
 
-</body>
+    {% endfor %}
 
-</html>
+{% else %}
+
+    <div class="evento">
+        <p>Nenhuma tarefa cadastrada.</p>
+    </div>
+
+{% endif %}
+
+{% endblock %}

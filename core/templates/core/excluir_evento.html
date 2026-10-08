@@ -1,40 +1,30 @@
-{% load static %}
+{% extends "core/base.html" %}
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Excluir Evento</title>
-    <link rel="stylesheet" href="{% static 'core/style.css' %}">
-</head>
+{% block title %}
+Excluir Evento
+{% endblock %}
 
-<body>
+{% block content %}
 
-    <div class="container">
+<h1>Excluir evento</h1>
 
-        <h1>Excluir Evento</h1>
+<p>
+    Tem certeza que deseja excluir o evento
+    <strong>{{ evento.nome }}</strong>?
+</p>
 
-        <p>
-            Tem certeza que deseja excluir o evento
-            <strong>{{ evento.nome }}</strong>?
-        </p>
+<form method="post">
+    {% csrf_token %}
 
-        <form method="post">
+    <button class="btn" type="submit">
+        Sim, excluir
+    </button>
+</form>
 
-            {% csrf_token %}
+<br>
 
-            <button type="submit">
-                Sim, excluir
-            </button>
+<a class="btn" href="{% url 'listar_eventos' %}">
+    Cancelar
+</a>
 
-        </form>
-
-        <a class="voltar" href="{% url 'listar_eventos' %}">
-            ← Cancelar
-        </a>
-
-    </div>
-
-</body>
-</html>
+{% endblock %}

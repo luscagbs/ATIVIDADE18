@@ -1,42 +1,30 @@
-{% load static %}
+{% extends "core/base.html" %}
 
-<!DOCTYPE html>
-<html lang="pt-BR">
+{% block title %}
+Excluir Tarefa
+{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Excluir Tarefa</title>
-    <link rel="stylesheet" href="{% static 'core/style.css' %}">
-</head>
+{% block content %}
 
-<body>
+<h1>Excluir tarefa</h1>
 
-    <div class="container">
+<p>
+    Tem certeza que deseja excluir a tarefa
+    <strong>{{ tarefa.titulo }}</strong>?
+</p>
 
-        <h1>Excluir tarefa</h1>
+<form method="post">
+    {% csrf_token %}
 
-        <p>
-            Tem certeza que deseja excluir a tarefa
-            <strong>{{ tarefa.titulo }}</strong>?
-        </p>
+    <button class="btn" type="submit">
+        Sim, excluir
+    </button>
+</form>
 
-        <form method="post">
-            {% csrf_token %}
+<br>
 
-            <button class="btn" type="submit">
-                Sim, excluir
-            </button>
-        </form>
+<a class="btn" href="{% url 'listar_tarefas' %}">
+    Cancelar
+</a>
 
-        <br>
-
-        <a class="btn" href="{% url 'listar_tarefas' %}">
-            Cancelar
-        </a>
-
-    </div>
-
-</body>
-
-</html>
+{% endblock %}
