@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import EventoForm
-from .models import Evento
+from .forms import EventoForm, TarefaForm
+from .models import Evento, Tarefa
 
 
 def listar_eventos(request):
@@ -51,4 +51,54 @@ def excluir_evento(request, pk):
         request,
         "core/excluir_evento.html",
         {"evento": evento}
+    )
+
+def listar_tarefas(request):
+    tarefas = Tarefa.objects.all()
+    return render(request, "core/listar_tarefas.html", {"tarefas": tarefas})
+
+
+def criar_tarefa(request):
+    if request.method == "POST":
+        form = TarefaForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect("listar_tarefas")
+    else:
+        form = TarefaForm()
+
+    return render(request, "core/criar_tarefa.html", {"form": form})
+
+
+def editar_tarefa(request, pk):
+    tarefa = get_object_or_404(Tarefa, pk=pk)
+
+    if request.method == "POST":
+        form = TarefaForm(request.POST, instance=tarefa)
+
+        if form.is_valid():
+            form.save()
+            return redirect("listar_tarefas")
+    else:
+        form = TarefaForm(instance=tarefa)
+
+    return render(
+        request,
+        "core/editar_tarefa.html",
+        {"form": form, "tarefa": tarefa}
+    )
+
+
+def excluir_tarefa(request, pk):
+    tarefa = get_object_or_404(Tarefa, pk=pk)
+
+    if request.method == "POST":
+        tarefa.delete()
+        return redirect("listar_tarefas")
+
+    return render(
+        request,
+        "core/excluir_tarefa.html",
+        {"tarefa": tarefa}
     )

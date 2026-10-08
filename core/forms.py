@@ -1,5 +1,5 @@
 from django import forms
-from .models import Evento
+from .models import Evento, Tarefa
 
 
 class EventoForm(forms.ModelForm):
@@ -16,3 +16,8 @@ class EventoForm(forms.ModelForm):
     class Meta:
         model = Evento
         fields = ["nome", "descricao", "data"]
+
+class TarefaForm(forms.ModelForm):
+    class Meta:
+        model = Tarefa
+        fields = ["titulo", "prioridade", "concluido", "evento"]
