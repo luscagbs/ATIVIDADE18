@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Gestão de Eventos e Tarefas{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+
+<body>
+
+    <header class="navbar">
+
+        <div class="navbar-container">
+
+            <a class="navbar-brand" href="{% url 'listar_eventos' %}">
+                Gestão de Eventos
+            </a>
+
+            <nav>
+                <a href="{% url 'listar_eventos' %}">
+                    Eventos
+                </a>
+
+                <a href="{% url 'listar_tarefas' %}">
+                    Tarefas
+                </a>
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main class="container">
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+</body>
+
+</html>
